@@ -12,7 +12,14 @@ var categoryRouter = require('./routes/gian-hang');
 var productRouter = require('./routes/san-pham');
 var toptenRouter = require('./routes/top-10');
 var soldRouter = require('./routes/doanh-so');
+var loginRouter = require('./routes/loginRouter');
+var mongoose = require('mongoose');
 
+var passport = require('passport');
+mongoose.connect('mongodb+srv://admin:' + encodeURI('123123123') + '@doanckweb-f3fht.mongodb.net/CustomerSite', { useNewUrlParser: true }, function(err) {
+    if (err) throw err;
+    console.log('Successfully connected');
+});
 var app = express();
 
 // view engine setup
@@ -24,8 +31,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
-app.use('/', indexRouter);
+app.use('/', loginRouter);
+app.use('/home', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tai-khoan', accountRouter);
 app.use('/don-hang', orderRouter);
