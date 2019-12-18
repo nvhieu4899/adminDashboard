@@ -12,4 +12,29 @@ var product = new mongoose.Schema({
     category: { type: String, required: false }
 });
 
-module.exports = mongoose.model('Product', product, 'product');
+var model = mongoose.model('Product', product, 'product');
+
+module.exports.getCont = async(cateId) => {
+    try {
+        var count = 0;
+        if (cateId==null) return 0;
+        else count = await model.count({ category: cateId });
+        return count;
+    } catch (e) {
+        return 0;
+    }
+};
+
+module.exports.getSold = async(cateId) => {
+    try {
+        if (cateId==null) return 0;
+        else 
+        {
+            const soldPro = await model.find({ category: cateId });
+            
+        }
+        return soldPro.sumsold;
+    } catch (e) {
+        return 0;
+    }
+};
