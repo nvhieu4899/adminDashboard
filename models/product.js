@@ -27,13 +27,17 @@ module.exports.getCont = async(cateId) => {
 
 module.exports.getSold = async(cateId) => {
     try {
+        var sumsold = 0;
         if (cateId==null) return 0;
         else 
         {
             const soldPro = await model.find({ category: cateId });
-            
+            for (const item of soldPro)
+            {
+                sumsold+=item.sold;
+            };
         }
-        return soldPro.sumsold;
+        return sumsold;
     } catch (e) {
         return 0;
     }
