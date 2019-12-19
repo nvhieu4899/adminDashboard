@@ -14,6 +14,10 @@ var product = new mongoose.Schema({
 
 var model = mongoose.model('Product', product, 'product');
 
+module.exports.getAllProduct = async() => {
+    return await model.find({});
+};
+
 module.exports.getCont = async(cateId) => {
     try {
         var count = 0;

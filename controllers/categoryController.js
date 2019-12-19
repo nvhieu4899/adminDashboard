@@ -1,12 +1,6 @@
 var Product = require('../models/product');
 var Category = require('../models/category');
 
-async function asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
-    }
-  }
-
 module.exports.categoryCon = async(req, res, next) => {
     try {
         const category = await Category.getAllCategories();

@@ -21,107 +21,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">Bắp cải</th>
-                        <td>Rau củ</td>
-                        <td>Kg</td>
-                        <td>&#8363;40.000</td>
-                        <td>500</td>
-                        <td>2000</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dưa hấu</th>
-                        <td>Trái cây</td>
-                        <td>Kg</td>
-                        <td>&#8363;65.000</td>
-                        <td>400</td>
-                        <td>2000</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Hạt điều</th>
-                        <td>Hạt, đồ sấy khô</td>
-                        <td>Kg</td>
-                        <td>&#8363;150.000</td>
-                        <td>1321</td>
-                        <td>1999</td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row">Nước ép táo</th>
-                        <td>Nước ép</td>
-                        <td>Lít</td>
-                        <td>&#8363;40.000</td>
-                        <td>1500</td>
-                        <td>221</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Nước ép nho</th>
-                        <td>Nước ép</td>
-                        <td>Lít</td>
-                        <td>&#8363;70.000</td>
-                        <td>1200</td>
-                        <td>33</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Khoai tây</th>
-                        <td>Rau củ</td>
-                        <td>Kg</td>
-                        <td>&#8363;30.000</td>
-                        <td>500</td>
-                        <td>2133</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Rau dền</th>
-                        <td>Rau củ</td>
-                        <td>Kg</td>
-                        <td>&#8363;35.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-
-                    </tr>
-
-                    <tr>
-                        <th scope="row">Cà chua</th>
-                        <td>Rau củ</td>
-                        <td>Kg</td>
-                        <td>&#8363;40.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row">Tiêu</th>
-                        <td>Hạt, đồ sấy khô</td>
-                        <td>Kg</td>
-                        <td>&#8363;120.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Đậu bắp</th>
-                        <td>Rau củ</td>
-                        <td>Kg</td>
-                        <td>&#8363;40.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row">Dứa</th>
-                        <td>Trái cây</td>
-                        <td>Kg</td>
-                        <td>&#8363;60.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dâu tây</th>
-                        <td>Trái cây</td>
-                        <td>Kg</td>
-                        <td>&#8363;85.000</td>
-                        <td>500</td>
-                        <td>1212</td>
-                    </tr>
+                    {{#each prod}}
+                        <tr>
+                            <th scope="row">{{{name}}}</th>
+                            <td>{{{catename}}}</td>
+                            <td>{{{unit}}}</td>
+                            <td>&#8363;{{{price}}}</td>
+                            <td>{{{sold}}}</td>
+                            <td>{{{available}}}</td>
+                        </tr>
+                    {{/each}}
                 </tbody>
             </table>
 
