@@ -19,5 +19,10 @@ var UsersSchema = new mongoose.Schema({
         default: "0"
     }
 });
-const model = mongoose.model('users', UsersSchema, 'users');
-module.exports.model = model;
+
+module.exports.model = mongoose.model('users', UsersSchema, 'users');
+var model = mongoose.model('users', UsersSchema, 'users');
+
+module.exports.getAllUser = async() => {
+    return await model.find({});
+}

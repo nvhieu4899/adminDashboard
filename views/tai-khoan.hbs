@@ -12,23 +12,28 @@
                         <tr>
                             <th>Tên đăng nhập</th>
                             <th>Quyền tài khoản</th>
-                            <th>Lần hoạt động gần nhất</th>
+                            <th>Email</th>
                             <th>Tổng giá trị đã mua</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each accounts}}
                         <tr>
-                            <td>hieubanhay_9x</td>
-                            <td><select name="select" id="select" class="form-control">
+                            <td>{{{username}}}</td>
+                            <td>
+                                <select name="select" id="select" class="form-control" >
+                                    <option value="{{author}}" hidden="hidden" selected="selected">{{author}}</option>
                                     <option value="0">Chưa phân quyền</option>
-                                    <option value="1" selected="selected">Quản trị viên</option>
+                                    <option value="1">Quản trị viên</option>
                                     <option value="2">Nhân viên</option>
                                     <option value="3">Khách hàng</option>
                                 </select></td>
-                            <td><span class="onlineDot"></span> Đang hoạt động</td>
+
+                            <td>{{{email}}}</td>
                             <td>&#8363;320,800</td>
                         </tr>
-                        <tr>
+                        {{/each}}
+                        {{!--<tr>
                             <td>hieudeptrai_9x</td>
                             <td><select name="select" id="select" class="form-control">
                                     <option value="0">Chưa phân quyền</option>
@@ -248,6 +253,7 @@
                             <td>5 phút trước</td>
                             <td>&#8363;345,000</td>
                         </tr>
+                        --}}
                     </tbody>
                 </table>
             </div>
