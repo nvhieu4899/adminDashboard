@@ -17,6 +17,9 @@ var loginRouter = require('./routes/loginRouter');
 var mongoose = require('mongoose');
 
 var passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 mongoose.connect('mongodb+srv://admin:' + encodeURI('123123123') + '@doanckweb-f3fht.mongodb.net/CustomerSite', { useNewUrlParser: true }, function(err) {
     if (err) throw err;
     console.log('Successfully connected');
@@ -31,8 +34,24 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(session({
+    secret: 'mysupersecret',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { maxAge: 3 * 60 * 60 * 1000 } // 3 hours
+}));
+
+app.use((req, res, next) => {
+    res.locals.login = req.isAuthenticated();
+    res.locals.session = req.session;
+    next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', loginRouter);
 app.use('/home', indexRouter);
@@ -59,5 +78,5 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
+app.listen(4000);
 module.exports = app;

@@ -9,6 +9,7 @@ var product = new mongoose.Schema({
     sold: { type: Number, required: false },
     available: { type: Number, required: false },
     salePrice: { type: Number, required: false },
+    unit: { type: String, required: false },
     category: { type: String, required: false }
 });
 

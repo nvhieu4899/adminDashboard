@@ -1,17 +1,19 @@
 var express = require('express');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
-const User = require('../models/user');
 var router = express.Router();
-var passport = require('passport');
+var passport = require('../passport/passport');
+const dashboardController = require('../controllers/dashboardControllers');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('login', { title: 'Đăng nhập' });
+    dashboardController.loginDashBoard(req, res, next);
 });
 
-
 router.post('/', passport.authenticate('local', { failureRedirect: '/' }),
-    async(req, res) => {
-        res.redirect('/home');
+    async(req, res, next) => {
+        dashboardController.homepageController(req, res, next);
     });
+
+router.get("/dang-xuat", async(req, res, next) => {
+    dashboardController.logout(req, res, next);
+});
 module.exports = router;
