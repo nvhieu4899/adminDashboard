@@ -25,3 +25,16 @@ module.exports.getAllUserInfo = async(req, res, next) => {
         }
     }
 }
+
+module.exports.setAuth = async(req, res, next) => {
+    if (!req.user) dashboardController.login(req, res, next);
+    else {
+        try {
+            const userid = req.body.userid;
+            const value = req.body.value;
+            await User.setAuthen(userid, value);
+        } catch (error) {
+            next();
+        }
+    }
+}

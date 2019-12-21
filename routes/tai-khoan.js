@@ -7,8 +7,8 @@ router.get('/', async(req, res, next) => {
     userController.getAllUserInfo(req, res, next);
 });
 
-router.get('/', function(req, res, next) {
-    res.render('tai-khoan', { title: 'Quản lí các tài khoản' });
+router.post('/', async(req, res, next) => {
+    userController.setAuth(req, res, next);
 });
 
 module.exports = router;

@@ -26,3 +26,19 @@ var model = mongoose.model('users', UsersSchema, 'users');
 module.exports.getAllUser = async() => {
     return await model.find({});
 }
+
+module.exports.setAuthen = async(userid, value) => {
+    try {
+        await model.updateOne(
+            {"_id" : userid},
+            {"$set": {"authen": value-1}},
+            function(err) {
+                if (err) throw err;
+            }
+        )
+        return true;
+    } catch (err) {
+        return false;
+    }
+    
+}
