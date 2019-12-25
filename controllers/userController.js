@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var Order = require('../models/order');
+
 const dashboardController = require('./dashboardControllers');
 
 module.exports.getAllUserInfo = async(req, res, next) => {
@@ -10,9 +12,12 @@ module.exports.getAllUserInfo = async(req, res, next) => {
             {
                 if(item.id!=null)
                 {
-                    if (item.authen !== "1")
-                    item.author = "Khách hàng";
-                    else item.author = "Quản trị viên";
+                    if (item.authen == "1")
+                    item.author = "Quản trị viên";
+                    else if (item.authen == "0") item.author = "Khách hàng";
+                    else item.author = "Chưa phân quyền";
+                    const buy = await Order.getBuy(item.id);
+                    item.buy = buy;
                 }
             };
             res.render('tai-khoan', {
