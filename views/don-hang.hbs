@@ -15,36 +15,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each order}}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Nguyễn Văn Hiệu</td>
-                        <td>10/10/2019</td>
-                        <td>Đang giao</td>
+                        <th scope="row">{{{_id}}}</th>
+                        <td>{{{name}}}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Xuân Mai</td>
-                        <td>30/10/2019</td>
-                        <td>Chưa giao</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Đen Đình</td>
-                        <td>6/9/2019</td>
-                        <td>Đã giao</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Đen Đình</td>
-                        <td>1/11/2019</td>
-                        <td>Đang giao</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Niko</td>
-                        <td>29/10/2019</td>
-                        <td>Đã giao</td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
 

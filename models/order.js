@@ -22,3 +22,11 @@ module.exports.getBuy = async(userid) => {
         return null;
     }
 }
+
+module.exports.getAllOrder = async() => {
+    try {
+        return await model.find({});
+    } catch (error) {
+        return null;
+    }
+}

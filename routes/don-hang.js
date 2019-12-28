@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const orderController = require('../controllers/orderController');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('don-hang', { title: 'Đơn hàng', user: req.user });
+router.get('/', async(req, res, next) => {
+    orderController.getAllOrder(req, res, next);
 });
 
 module.exports = router;
