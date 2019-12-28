@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const productController = require('../controllers/productController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('top-10', { title: 'Top 10 sản phẩm', user: req.user });
+router.get('/', async(req, res, next) => {
+    productController.getTopProduct(req, res, next);
 });
 
 module.exports = router;

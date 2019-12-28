@@ -16,7 +16,6 @@ module.exports.getBuy = async(userid) => {
         for (const item of findOrder)
         {
             buy += item.cart.totalPrice;
-            console.log(buy);
         }
         return buy;
     } catch (error) {

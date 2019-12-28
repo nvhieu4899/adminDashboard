@@ -47,3 +47,13 @@ module.exports.getSold = async(cateId) => {
         return 0;
     }
 };
+
+module.exports.getTopProduct = async() => {
+    let pro = model.find({});
+    pro = pro.sort({sold: -1});
+    try {
+        return await pro.limit(10);
+    } catch (e) {
+        return 0;
+    }
+};
