@@ -42,3 +42,13 @@ module.exports.setAuthen = async(userid, value) => {
     }
     
 }
+
+module.exports.getAllUserCount = async() => {
+    try {
+        var count = 0;
+        count = await model.count({});
+        return count;
+    } catch (e) {
+        return 0;
+    }
+}

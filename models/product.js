@@ -19,7 +19,7 @@ module.exports.getAllProduct = async() => {
     return await model.find({});
 };
 
-module.exports.getCont = async(cateId) => {
+module.exports.getCount = async(cateId) => {
     try {
         var count = 0;
         if (cateId==null) return 0;
@@ -43,6 +43,30 @@ module.exports.getSold = async(cateId) => {
             };
         }
         return sumsold;
+    } catch (e) {
+        return 0;
+    }
+};
+
+module.exports.getSoldAll = async() => {
+    try {
+        var sumsold = 0;
+        const soldPro = await model.find({});
+        for (const item of soldPro)
+        {
+            sumsold+=item.sold;
+        };
+        return sumsold;
+    } catch (e) {
+        return 0;
+    }
+};
+
+module.exports.getCountAll = async() => {
+    try {
+        var count = 0;
+        count = await model.count({});
+        return count;
     } catch (e) {
         return 0;
     }

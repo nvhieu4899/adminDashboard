@@ -23,6 +23,20 @@ module.exports.getBuy = async(userid) => {
     }
 }
 
+module.exports.getBuyAll = async() => {
+    try {
+        var buy = 0;
+        const Order = await model.find({});
+        for (const item of Order)
+        {
+            buy += item.cart.totalPrice;
+        }
+        return buy;
+    } catch (error) {
+        return null;
+    }
+}
+
 module.exports.getAllOrder = async() => {
     try {
         return await model.find({});

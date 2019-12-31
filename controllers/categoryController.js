@@ -11,7 +11,7 @@ module.exports.categoryCon = async(req, res, next) => {
             for (const item of category)
             {
                 if(item.id!=null){
-                const soluong = await Product.getCont(item.id);
+                const soluong = await Product.getCount(item.id);
                 const sold = await Product.getSold(item.id);
                 item.sl = soluong;
                 item.sold = sold;
