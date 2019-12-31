@@ -10,8 +10,8 @@
                     <tr>
                         <th scope="col">Mã số đơn hàng</th>
                         <th scope="col">Họ tên khách hàng</th>
-                        <th scope="col">Ngày nhận</th>
-                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Thành tiền</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,8 +19,8 @@
                     <tr>
                         <th scope="row">{{{_id}}}</th>
                         <td>{{{name}}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{{address}}}</td>
+                        <td>{{{cart.totalPrice}}}&#8363;</td>
                     </tr>
                     {{/each}}
                 </tbody>
