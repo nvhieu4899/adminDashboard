@@ -14,8 +14,6 @@ var productRouter = require('./routes/san-pham');
 var toptenRouter = require('./routes/top-10');
 var soldRouter = require('./routes/doanh-so');
 var loginRouter = require('./routes/loginRouter');
-var mongoose = require('mongoose');
-
 var passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
