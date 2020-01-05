@@ -2,7 +2,7 @@
 <div class="row">
 
     <div class="col-md-12">
-        <div class="card">
+        <div class="card" id="block-display">
             <div class="card-header">
                 <strong class="card-title">Danh sách tài khoản</strong>
             </div>
@@ -22,35 +22,85 @@
                             <td>{{{username}}}</td>
                             <td>
                                 <select name="select" id="select" class="form-control" onchange="setAthor(this);">
-                                    <option value="{{{author}}}" hidden="hidden" selected="selected">{{{author}}}</option>
+                                    <option value="{{{author}}}" hidden="hidden" selected="selected">{{{author}}}
+                                    </option>
                                     <option value=0>Chưa phân quyền</option>
                                     <option value=1>Khách hàng</option>
                                     <option value=2>Quản trị viên</option>
-                                    <option value=3 hidden="hidden">{{{_id}}}</option>              
+                                    <option value=3 hidden="hidden">{{{_id}}}</option>
                                 </select></td>
 
                             <td>{{{email}}}</td>
                             <td>{{{buy}}}&#8363;</td>
                         </tr>
                         {{/each}}
+
+
                     </tbody>
+
                 </table>
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            <ul class="pagination">
+                                {{#paginate pagination type="first"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item previous"><a
+                                        href="javascript:getPageAccount({{n}});" class="page-link">First</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="previous"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a href="javascript:getPageAccount({{n}});"
+                                        class="page-link">Prev</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="middle" limit="7"}}
+                                <li class="{{#if active}}active{{/if}} paginate_button page-item"><a href="javascript:getPageAccount({{n}});"
+                                        class="page-link">{{n}}</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="next"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item next"><a
+                                        href="javascript:getPageAccount({{n}});" class="page-link">Next</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="last"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a href="javascript:getPageAccount({{n}});"
+                                        class="page-link">Last</a></li>
+                                {{/paginate}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 
 <script>
-	function setAthor(element) {
+
+    function setAthor(element) {
         var sel = element.value;
         var strUser = element.options[4].text;
         var request = new XMLHttpRequest();
-            request.open("POST", "/tai-khoan", true);
-            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            var param = "userid=" + strUser + "&value=" + sel;
-            request.send(param);
-	}
+        request.open("POST", "/tai-khoan", true);
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        var param = "userid=" + strUser + "&value=" + sel;
+        request.send(param);
+    }
+</script>
+<script>
+    function getPageAccount(page) {
+        let req = new XMLHttpRequest();
+        req.open("GET", "/ajax/tai-khoan?p=" + page, true);
+        req.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let html = this.responseText;
+                document.getElementById("block-display").innerHTML = html;                
+            }
+        }
+        req.send();
+    }
 </script>
