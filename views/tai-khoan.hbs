@@ -22,12 +22,11 @@
                             <td>{{{username}}}</td>
                             <td>
                                 <select name="select" id="select" class="form-control" onchange="setAthor(this);">
-                                    <option value="{{{author}}}" hidden="hidden" selected="selected">{{{author}}}</option>
-                                    <option value=0>Chưa phân quyền</option>
-                                    <option value=1>Khách hàng</option>
-                                    <option value=2>Quản trị viên</option>
-                                    <option value=3>Tài khoản bị cấm</option>
-                                    <option value=4 hidden="hidden">{{{_id}}}</option>              
+                                    <option {{#compare authen "==" -1}}selected="true"{{/compare}}value=0>Chưa phân quyền</option>
+                                    <option {{#compare authen "==" 0}}selected="true"{{/compare}}value=1>Khách hàng</option>
+                                    <option {{#compare authen "==" 1}}selected="true"{{/compare}}value=2>Quản trị viên</option>
+                                    <option {{#compare authen "==" 2}}selected="true"{{/compare}}value=3>Tài khoản bị cấm</option>
+                                    <option value={{{_id}}} hidden="hidden"></option>              
                                 </select></td>
 
                             <td>{{{email}}}</td>
@@ -47,7 +46,7 @@
 <script>
 	function setAthor(element) {
         var sel = element.value;
-        var strUser = element.options[5].text;
+        var strUser = element.options[4].value;
         var request = new XMLHttpRequest();
             request.open("POST", "/tai-khoan", true);
             request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
