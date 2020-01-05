@@ -7,5 +7,7 @@ const categoryController = require('../controllers/categoryController');
 router.get('/', async(req, res, next) => {
     categoryController.categoryCon(req, res, next);
 });
-
+router.get('/add', (req, res, next) => {
+    res.render('')
+})
 module.exports = router;

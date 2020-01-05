@@ -1,0 +1,64 @@
+<title>{{{title}}}</title>
+<div class="card">
+    <div class="card-header">
+        <strong>Thêm sản phẩm</strong>
+    </div>
+    <div class="card-body card-block">
+        <form method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên sản phẩm</label></div>
+                <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Tên sản phẩm"
+                        class="form-control" required><small class="form-text text-muted"></small></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả</label></div>
+                <div class="col-12 col-md-9"><textarea name="description" id="textarea-input" rows="9"
+                        placeholder="Mô tả sản phẩm" class="form-control"></textarea></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="select" class=" form-control-label">Chọn gian hàng</label></div>
+                <div class="col-12 col-md-9">
+                    <select id="select" class="form-control" name="category">
+                        <option value="0">Gian hàng</option>
+                        {{#each category}}
+                        <option value="{{_id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số lượng</label></div>
+                <div class="col-12 col-md-9"><input type="number" id="text-input" name="quantity" placeholder="Số lượng"
+                        step="1" class="form-control" required><small class="form-text text-muted"></small></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="" class=" form-control-label">Giá bán</label></div>
+                <div class="col col-sm-4"><input type="number" placeholder="Đơn giá" class="form-control" step="1000" name="price" min="0" required>
+                </div>
+                <div class="col col-sm-4"><input type="number" placeholder="Giá khuyến mãi" class="form-control" name="salePrice"
+                        step="1000" min="0"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="select" class=" form-control-label">Đơn vị</label></div>
+                <div class="col-12 col-md-9">
+                    <select name="unit" id="select" class="form-control">
+                        <option value="Kg">Kg</option>
+                        <option value="Lít">Lít</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    <label for="file-input" class=" form-control-label">Hình ảnh minh hoạ</label>
+                </div>
+                <div class="col-12 col-md-9">
+                    <input type="file" id="file-input" name="image" accept="image/x-png,image/gif,image/jpeg"
+                        class="form-control-file">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                + Thêm sản phẩm
+            </button>
+        </form>
+    </div>
+</div>
