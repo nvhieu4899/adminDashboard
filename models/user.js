@@ -24,14 +24,12 @@ module.exports.model = mongoose.model('users', UsersSchema, 'users');
 var model = mongoose.model('users', UsersSchema, 'users');
 
 module.exports.getAllUser = async() => {
-    return await model.find({});
+    return await model.find({}).lean();
 }
 
 module.exports.setAuthen = async(userid, value) => {
     try {
-        await model.updateOne(
-            {"_id" : userid},
-            {"$set": {"authen": value-1}},
+        await model.updateOne({ "_id": userid }, { "$set": { "authen": value - 1 } },
             function(err) {
                 if (err) throw err;
             }
@@ -40,7 +38,7 @@ module.exports.setAuthen = async(userid, value) => {
     } catch (err) {
         return false;
     }
-    
+
 }
 
 module.exports.getAllUserCount = async() => {
@@ -50,5 +48,12 @@ module.exports.getAllUserCount = async() => {
         return count;
     } catch (e) {
         return 0;
+    }
+}
+module.exports.getUserAtPage = async(pageIndex, pageSize) => {
+    try {
+        return model.find({}).skip((pageIndex - 1) * pageSize).limit(pageSize).lean();
+    } catch (err) {
+        return null;
     }
 }

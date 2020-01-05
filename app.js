@@ -15,6 +15,7 @@ var toptenRouter = require('./routes/top-10');
 var soldRouter = require('./routes/doanh-so');
 var loginRouter = require('./routes/loginRouter');
 var passport = require('passport');
+var ajaxRouter = require('./routes/ajax');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -51,7 +52,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 app.use('/', loginRouter);
+app.use('/ajax', ajaxRouter);
 app.use('/home', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tai-khoan', accountRouter);
