@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const PAGE_SIZE = 10;
 const Handlebars = require('../helpers/handlebars');
+const Product = require('../models/product');
 module.exports.getAccountPage = async(req, res, next) => {
     let page = 1;
     if (req.query.p) page = req.query.p;
@@ -29,6 +30,22 @@ module.exports.getAccountPage = async(req, res, next) => {
             limit: 7
         },
         layout: 'block-layout/account-block'
+    }, (err, html) => {
+        res.send(html);
+    });
+}
+
+module.exports.filter = async(req, res, next) => {
+    let products = await Product.filterAtPage(req.query);
+    let offset = (req.query.p - 1) * PAGE_SIZE;
+    res.render('block-layout/product-block', {
+        prod: products.slice(offset, offset + 10),
+        pagination: {
+            page: req.query.p,
+            pageCount: Math.ceil(products.length / PAGE_SIZE),
+            limit: 7
+        },
+        layout: 'block-layout/product-block'
     }, (err, html) => {
         res.send(html);
     });

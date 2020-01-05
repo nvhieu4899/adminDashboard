@@ -4,7 +4,7 @@ const dashboardController = require('./dashboardControllers');
 const Resize = require('../upload/resize');
 const path = require('path');
 const sharp = require('sharp');
-
+const PAGE_SIZE = 10;
 module.exports.getAllProductInfo = async(req, res, next) => {
     if (!req.user) dashboardController.login(req, res, next);
     else {
@@ -16,10 +16,17 @@ module.exports.getAllProductInfo = async(req, res, next) => {
                     item.catename = catename;
                 }
             };
+            const categories = await Category.getAllCategories();
             res.render('san-pham', {
                 title: 'Sản phẩm',
                 user: req.user,
-                prod: products
+                prod: products.slice(0, 10),
+                category: categories,
+                pagination: {
+                    page: 1,
+                    pageCount: Math.ceil(products.length / PAGE_SIZE),
+                    limit: 7
+                }
             });
         } catch (err) {
             next();

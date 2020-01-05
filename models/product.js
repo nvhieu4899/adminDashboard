@@ -97,3 +97,43 @@ module.exports.addNewProduct = async(name, desc, cate, qty, price, salePrice, un
     }
 
 }
+module.exports.getProductsAtPage = async(pageIndex, pageSize) => {
+    try {
+        let product = await model.find({}).skip((pageIndex - 1) * pageSize).lean().limit(pageSize);
+        return product;
+    } catch (err) {
+        return null;
+    }
+}
+module.exports.filterAtPage = async(query) => {
+    let minCost = query.minCost ? query.minCost : Number.MIN_SAFE_INTEGER;
+    let maxCost = query.maxCost ? query.maxCost : Number.MAX_SAFE_INTEGER;
+    let productQuery = model.find({ price: { $lte: maxCost, $gte: minCost } });
+    if (query.category) productQuery = productQuery.where('category').equals(query.category);
+    if (query.name) productQuery = productQuery.where('name').regex(query.name);
+    let sortOrder = 1;
+    if (query.order == 2) sortOrder = -1;
+
+    switch (query.sortBy) {
+        case '1':
+            productQuery = productQuery.sort({ name: sortOrder });
+            break;
+        case '2':
+            productQuery = productQuery.sort({ price: sortOrder });
+            break;
+        case '3':
+            productQuery = productQuery.sort({ available: sortOrder });
+            break;
+        case '4':
+            productQuery = productQuery.sort({ sold: sortOrder });
+            break;
+        default:
+            break;
+    }
+    try {
+        let products = await productQuery.lean().exec();
+        return products;
+    } catch {
+        return null;
+    }
+}

@@ -1,0 +1,57 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Tên mặt hàng</th>
+            <th scope="col">Gian hàng</th>
+            <th scope="col">Đơn vị tính</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Đã bán</th>
+            <th scope="col">Tồn kho</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each prod}}
+        <tr>
+            <th scope="row">{{{name}}}</th>
+            <td>{{{catename}}}</td>
+            <td>{{{unit}}}</td>
+            <td>{{{price}}}&#8363;</td>
+            <td>{{{sold}}}</td>
+            <td>{{{available}}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-sm-12 col-md-5">
+
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                {{#paginate pagination type="first"}}
+                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item previous"><a
+                        href="javascript:getProductFilterPage({{n}});" class="page-link">First</a>
+                </li>
+                {{/paginate}}
+                {{#paginate pagination type="previous"}}
+                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a
+                        href="javascript:getProductFilterPage({{n}});" class="page-link">Prev</a></li>
+                {{/paginate}}
+                {{#paginate pagination type="middle" limit="7"}}
+                <li class="{{#if active}}active{{/if}} paginate_button page-item"><a
+                        href="javascript:getProductFilterPage({{n}});" class="page-link">{{n}}</a>
+                </li>
+                {{/paginate}}
+                {{#paginate pagination type="next"}}
+                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item next"><a
+                        href="javascript:getProductFilterPage({{n}});" class="page-link">Next</a></li>
+                {{/paginate}}
+                {{#paginate pagination type="last"}}
+                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a
+                        href="javascript:getProductFilterPage({{n}});" class="page-link">Last</a></li>
+                {{/paginate}}
+            </ul>
+        </div>
+    </div>
+</div>

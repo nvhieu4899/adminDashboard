@@ -5,36 +5,144 @@
             <strong class="card-title">Quản lí sản phẩm</strong>
             <a href="/san-pham/add" class="btn btn-primary" style="float: right;">+ Thêm sản phẩm</a>
         </div>
+
         <div class="card-body">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Tên mặt hàng</th>
-                        <th scope="col">Gian hàng</th>
-                        <th scope="col">Đơn vị tính</th>
-                        <th scope="col">Đơn giá</th>
+            <form action="" method="get" enctype="multipart/form-data" class="form-horizontal" name="filter">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="sortBy" class=" form-control-label">Sắp xếp theo</label>
+                        <select name="sortBy" id="SelectLm" class="form-control-sm form-control">
+                            <option value="0">Không</option>
+                            <option value="1">Tên</option>
+                            <option value="2">Giá</option>
+                            <option value="3">Số lượng đã bán</option>
+                            <option value="4">Số lượng tồn kho</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="orderBy" class=" form-control-label">Thứ tự</label>
+                        <select name="orderBy" id="SelectLm" class="form-control-sm form-control">
+                            <option value="0">Không</option>
+                            <option value="1">Tăng dần</option>
+                            <option value="2">Giảm dần</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="text-input" class="form-control-label">Giá thấp nhất</label>
+                        <input type="number" id="text-input" name="minCost" placeholder="" class="form-control" min="0"
+                            step="1000">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="text-input" class=" form-control-label">Giá cao nhất</label>
+                        <input type="number" id="text-input" name="maxCost" placeholder="" class="form-control" min="0"
+                            step="1000">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-6">
+                        <label for="text-input" class=" form-control-label">Tên sản phẩm</label>
+                        <input type="text" id="text-input" name="productName" placeholder="" class="form-control">
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <label for="category" class=" form-control-label">Gian hàng</label>
+                        <select name="category" id="SelectLm" class="form-control-sm form-control">
+                            <option value="0">Tất cả</option>
+                            {{#each category}}
+                            <option value="{{_id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success btn-sm" onclick="getProductFilterPage(1);">
+                        <i class="fa fa-dot-circle-o"></i> Tìm kiếm
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <br>
+            <div id="display-block">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Tên mặt hàng</th>
+                            <th scope="col">Gian hàng</th>
+                            <th scope="col">Đơn vị tính</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Đã bán</th>
+                            <th scope="col">Tồn kho</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each prod}}
+                        <tr>
+                            <th scope="row">{{{name}}}</th>
+                            <td>{{{catename}}}</td>
+                            <td>{{{unit}}}</td>
+                            <td>{{{price}}}&#8363;</td>
+                            <td>{{{sold}}}</td>
+                            <td>{{{available}}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
 
-                        <th scope="col">Đã bán</th>
-
-
-                        <th scope="col">Tồn kho</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each prod}}
-                    <tr>
-                        <th scope="row">{{{name}}}</th>
-                        <td>{{{catename}}}</td>
-                        <td>{{{unit}}}</td>
-                        <td>{{{price}}}&#8363;</td>
-                        <td>{{{sold}}}</td>
-                        <td>{{{available}}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            <ul class="pagination">
+                                {{#paginate pagination type="first"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item previous"><a
+                                        href="javascript:getProductFilterPage({{n}});" class="page-link">First</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="previous"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a
+                                        href="javascript:getProductFilterPage({{n}});" class="page-link">Prev</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="middle" limit="7"}}
+                                <li class="{{#if active}}active{{/if}} paginate_button page-item"><a
+                                        href="javascript:getProductFilterPage({{n}});" class="page-link">{{n}}</a>
+                                </li>
+                                {{/paginate}}
+                                {{#paginate pagination type="next"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item next"><a
+                                        href="javascript:getProductFilterPage({{n}});" class="page-link">Next</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="last"}}
+                                <li class="{{#if disabled}}disabled{{/if}} paginate_button page-item"><a
+                                        href="javascript:getProductFilterPage({{n}});" class="page-link">Last</a></li>
+                                {{/paginate}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 </div>
+<script>
+    function getProductFilterPage(page) {
+        let request = new XMLHttpRequest();
+
+        let name = document.forms["filter"]["productName"].value;
+        let sortBy = document.forms["filter"]["sortBy"].value;
+        let orderBy = document.forms["filter"]["orderBy"].value;
+        let category = document.forms["filter"]["productName"].value;
+        let minCost = document.forms["filter"]["minCost"].value;
+        let maxCost = document.forms["filter"]["maxCost"].value;
+
+
+        request.onreadystatechange = function () {
+            if (this.status == 200 && this.readyState == 4)
+            document.getElementById("display-block").innerHTML = this.responseText;
+        }
+        request.open("GET", '/ajax/product?name=' + name + '&category=' + category + '&minCost=' + minCost + '&maxCost=' + maxCost + '&sortBy=' + sortBy + '&order=' + orderBy+'&p='+page, true);
+        request.send();
+    }
+</script>

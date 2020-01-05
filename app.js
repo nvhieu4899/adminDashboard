@@ -48,7 +48,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 36000000 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
