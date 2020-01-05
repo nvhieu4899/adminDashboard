@@ -2,9 +2,8 @@ var Product = require('../models/product');
 var Category = require('../models/category');
 const dashboardController = require('./dashboardControllers');
 const Resize = require('../upload/resize');
-const express = require('express');
 const path = require('path');
-const imgur = require('../upload/imgur');
+const sharp = require('sharp');
 
 module.exports.getAllProductInfo = async(req, res, next) => {
     if (!req.user) dashboardController.login(req, res, next);
@@ -64,12 +63,12 @@ module.exports.addProduct = async(req, res, next) => {
             res.send("no image");
             return;
         }
-        let base64 = req.file.buffer.toString('base64');
+        let buffer = await sharp(req.file.buffer).resize(1000, 800).jpeg().toBuffer();
+        let base64 = buffer.toString('base64');
         base64 = "data:image/jpeg;base64," + base64;
         await Product.addNewProduct(req.body.name, req.body.description, req.body.category, req.body.quantity, req.body.price, req.body.salePrice, req.body.unit, base64);
-        res.redirect('/san-pham')
+        res.redirect('/san-pham');
     } catch (err) {
-        throw err;
         res.send("failure");
     }
 }

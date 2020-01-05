@@ -4,7 +4,6 @@ var passport = require('../passport/passport');
 const productController = require('../controllers/productController');
 const upload = require('../upload/uploadMiddleware');
 
-
 /* GET home page. */
 router.get('/', async(req, res, next) => {
     productController.getAllProductInfo(req, res, next);
