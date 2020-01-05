@@ -12,7 +12,10 @@ module.exports.getAllUserInfo = async(req, res, next) => {
                 if (item.id != null) {
                     if (item.authen == "1")
                         item.author = "Quản trị viên";
-                    else if (item.authen == "0") item.author = "Khách hàng";
+                    else
+                    if (item.authen == "0") item.author = "Khách hàng";
+                    else
+                    if (item.authen == "2") item.author = "Tài khoản bị cấm";
                     else item.author = "Chưa phân quyền";
                     const buy = await Order.getBuy(item.id);
                     item.buy = buy;

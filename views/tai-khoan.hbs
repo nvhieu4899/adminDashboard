@@ -27,7 +27,8 @@
                                     <option value=0>Chưa phân quyền</option>
                                     <option value=1>Khách hàng</option>
                                     <option value=2>Quản trị viên</option>
-                                    <option value=3 hidden="hidden">{{{_id}}}</option>
+                                    <option value=3>Tài khoản bị cấm</option>
+                                    <option value=4 hidden="hidden">{{{_id}}}</option>              
                                 </select></td>
 
                             <td>{{{email}}}</td>
@@ -83,7 +84,7 @@
 
     function setAthor(element) {
         var sel = element.value;
-        var strUser = element.options[4].text;
+        var strUser = element.options[5].text;
         var request = new XMLHttpRequest();
         request.open("POST", "/tai-khoan", true);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

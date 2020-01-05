@@ -44,3 +44,19 @@ module.exports.getAllOrder = async() => {
         return null;
     }
 }
+
+module.exports.setStt = async(orderid, value) => {
+    try {
+        await model.updateOne(
+            {"_id" : orderid},
+            {"$set": {"status": value}},
+            function(err) {
+                if (err) throw err;
+            }
+        )
+        return true;
+    } catch (err) {
+        return false;
+    }
+    
+}
