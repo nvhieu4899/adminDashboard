@@ -7,13 +7,15 @@
         <form method="post" action="/san-pham/update" enctype="multipart/form-data" class="form-horizontal">
             <div class="row form-group">
                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Mã sản phẩm</label></div>
-                <div class="col-12 col-md-9"><input type="text" id="text-input" name="id" placeholder="Mã sản phẩm sản phẩm" value="{{product._id}}"
-                        class="form-control" readonly required><small class="form-text text-muted"></small></div>
+                <div class="col-12 col-md-9"><input type="text" id="text-input" name="id"
+                        placeholder="Mã sản phẩm sản phẩm" value="{{product._id}}" class="form-control" readonly
+                        required><small class="form-text text-muted"></small></div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên sản phẩm</label></div>
-                <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Tên sản phẩm" value="{{product.name}}"
-                        class="form-control" required><small class="form-text text-muted"></small></div>
+                <div class="col-12 col-md-9"><input type="text" id="text-input" name="name" placeholder="Tên sản phẩm"
+                        value="{{product.name}}" class="form-control" required><small
+                        class="form-text text-muted"></small></div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả</label></div>
@@ -26,7 +28,7 @@
                     <select id="select" class="form-control" name="category">
                         <option value="0">Gian hàng</option>
                         {{#each category}}
-                        <option value="{{this._id}}" >{{this.name}}</option>
+                        <option value="{{this._id}}">{{this.name}}</option>
                         {{/each}}
                         <option value="{{product.category}}" selected="true" hidden>{{product.categoryName}}</option>
                     </select>
@@ -34,24 +36,34 @@
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số lượng</label></div>
-                <div class="col-12 col-md-9"><input type="number" id="text-input" name="quantity" placeholder="Số lượng" value="{{product.available}}"
-                        step="1" class="form-control" required><small class="form-text text-muted"></small></div>
+                <div class="col-12 col-md-9"><input type="number" id="text-input" name="quantity" placeholder="Số lượng"
+                        value="{{product.available}}" step="1" class="form-control" required><small
+                        class="form-text text-muted"></small></div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="" class=" form-control-label">Giá bán</label></div>
-                <div class="col col-sm-4"><input type="number" placeholder="Đơn giá" class="form-control" step="1000" name="price" min="0" required value="{{product.price}}">
+                <div class="col col-sm-4"><input type="number" placeholder="Đơn giá" class="form-control" step="1000"
+                        name="price" min="0" required value="{{product.price}}">
                 </div>
-                <div class="col col-sm-4"><input type="number" placeholder="Giá khuyến mãi" class="form-control" name="salePrice" {{#if product.salePrice}}value="{{product.salePrice}}"{{/if}}
-                        step="1000" min="0"></div>
+                <div class="col col-sm-4"><input type="number" placeholder="Giá khuyến mãi" class="form-control"
+                        name="salePrice" {{#if product.salePrice}}value="{{product.salePrice}}" {{/if}} step="1000"
+                        min="0"></div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="select" class=" form-control-label">Đơn vị</label></div>
                 <div class="col-12 col-md-9">
                     <select name="unit" id="select" class="form-control">
-                        <option value="Kg" {{#compare product.unit "==" "Kg"}} selected= "true"{{/compare}}>Kg</option>
-                        <option value="Lít" {{#compare product.unit "==" "Lít"}} selected= "true"{{/compare}}>Lít</option>
+                        <option value="Kg" {{#compare product.unit "==" "Kg"}} selected="true" {{/compare}}>Kg</option>
+                        <option value="Lít" {{#compare product.unit "==" "Lít"}} selected="true" {{/compare}}>Lít
+                        </option>
                     </select>
                 </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="select" class=" form-control-label">Hình ảnh</label></div>
+
+                <img class="col col-md-6 img-fluid img-thumbnail text-center" style="width: 400px;" src="{{product.img}}"
+                    alt="Hình ảnh {{product.name}}">
             </div>
             <div class="row form-group">
                 <div class="col col-md-3">
