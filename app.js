@@ -7,11 +7,7 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var accountRouter = require('./routes/tai-khoan');
-var orderRouter = require('./routes/don-hang');
-var categoryRouter = require('./routes/gian-hang');
-var productRouter = require('./routes/san-pham');
-var toptenRouter = require('./routes/top-10');
+var managerRouter = require('./routes/quan-li');
 var soldRouter = require('./routes/doanh-so');
 var loginRouter = require('./routes/loginRouter');
 var passport = require('passport');
@@ -58,11 +54,7 @@ app.use('/', loginRouter);
 app.use('/ajax', ajaxRouter);
 app.use('/home', indexRouter);
 app.use('/users', usersRouter);
-app.use('/tai-khoan', accountRouter);
-app.use('/don-hang', orderRouter);
-app.use('/gian-hang', categoryRouter);
-app.use('/san-pham', productRouter);
-app.use('/top-10', toptenRouter);
+app.use('/quan-li', managerRouter);
 app.use('/doanh-so', soldRouter);
 
 // catch 404 and forward to error handler
