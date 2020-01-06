@@ -27,9 +27,9 @@ module.exports.getAllUser = async() => {
     return await model.find({}).lean();
 }
 
-module.exports.setAuthen = async(userid, value) => {
+module.exports.setAuthen = async(userid, value, req) => {
     try {
-        if (value==3 && userid==req.userid) 
+        if (value==3 && userid==req.user.id) 
         {
             return false;
         }

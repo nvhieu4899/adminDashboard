@@ -39,7 +39,7 @@ module.exports.setAuth = async(req, res, next) => {
         try {
             const userid = req.body.userid;
             const value = req.body.value;
-            await User.setAuthen(userid, value);
+            await User.setAuthen(userid, value, req);
         } catch (error) {
             next();
         }
