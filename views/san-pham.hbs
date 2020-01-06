@@ -15,8 +15,8 @@
                             <option value="0">Không</option>
                             <option value="1">Tên</option>
                             <option value="2">Giá</option>
-                            <option value="3">Số lượng đã bán</option>
-                            <option value="4">Số lượng tồn kho</option>
+                            <option value="3">Số lượng tồn kho</option>
+                            <option value="4">Số lượng đã bán</option>
                         </select>
                     </div>
                     <div class="col-md-3 form-group">
@@ -46,7 +46,7 @@
                     <div class="col-12 col-md-5">
                         <label for="category" class=" form-control-label">Gian hàng</label>
                         <select name="category" id="SelectLm" class="form-control-sm form-control">
-                            <option value="0">Tất cả</option>
+                            <option value="">Tất cả</option>
                             {{#each category}}
                             <option value="{{_id}}">{{name}}</option>
                             {{/each}}
@@ -73,6 +73,8 @@
                             <th scope="col">Đơn giá</th>
                             <th scope="col">Đã bán</th>
                             <th scope="col">Tồn kho</th>
+                            <th scope="col"></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +86,7 @@
                             <td>{{{price}}}&#8363;</td>
                             <td>{{{sold}}}</td>
                             <td>{{{available}}}</td>
+                            <td><a href="/san-pham/update?id={{_id}}" class="btn btn-info"><i class="far fa-edit"></i> Cập nhật</a></td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -136,13 +139,11 @@
         let category = document.forms["filter"]["category"].value;
         let minCost = document.forms["filter"]["minCost"].value;
         let maxCost = document.forms["filter"]["maxCost"].value;
-
-
         request.onreadystatechange = function () {
             if (this.status == 200 && this.readyState == 4)
-            document.getElementById("display-block").innerHTML = this.responseText;
+                document.getElementById("display-block").innerHTML = this.responseText;
         }
-        request.open("GET", '/ajax/product?name=' + name + '&category=' + category + '&minCost=' + minCost + '&maxCost=' + maxCost + '&sortBy=' + sortBy + '&order=' + orderBy+'&p='+page, true);
+        request.open("GET", '/ajax/product?name=' + name + '&category=' + category + '&minCost=' + minCost + '&maxCost=' + maxCost + '&sortBy=' + sortBy + '&order=' + orderBy + '&p=' + page, true);
         request.send();
     }
 </script>

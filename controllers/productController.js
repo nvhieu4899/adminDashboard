@@ -4,6 +4,7 @@ const dashboardController = require('./dashboardControllers');
 const Resize = require('../upload/resize');
 const path = require('path');
 const sharp = require('sharp');
+const cloudinary = require('../upload/cloudinary');
 const PAGE_SIZE = 10;
 module.exports.getAllProductInfo = async(req, res, next) => {
     if (!req.user) dashboardController.login(req, res, next);
@@ -72,10 +73,38 @@ module.exports.addProduct = async(req, res, next) => {
         }
         let buffer = await sharp(req.file.buffer).resize(1000, 800).jpeg().toBuffer();
         let base64 = buffer.toString('base64');
+
         base64 = "data:image/jpeg;base64," + base64;
-        await Product.addNewProduct(req.body.name, req.body.description, req.body.category, req.body.quantity, req.body.price, req.body.salePrice, req.body.unit, base64);
+        let json = await cloudinary.uploader.upload(base64);
+        await Product.addNewProduct(req.body.name, req.body.description, req.body.category, req.body.quantity, req.body.price, req.body.salePrice, req.body.unit, json.url);
         res.redirect('/san-pham');
     } catch (err) {
         res.send("failure");
     }
+}
+module.exports.getProductInfo = async(req, res, next) => {
+    if (!req.user) {
+        res.redirect('/');
+        return;
+    }
+    let product = await Product.getProductById(req.query.id);
+    let categories = await Category.getAllCategories();
+    product.categoryName = await Category.getCategoryName(product.category);
+    res.render('update-product-info', { title: 'Cập nhật sản phẩm', product: product, category: categories, user: req.user });
+}
+module.exports.updateProductInfo = async(req, res, next) => {
+    if (!req.user) {
+        res.redirect('/');
+        return;
+    }
+    if (!req.body.id) next();
+    await Product.updateProductInfo(req.body.id, req.body.name, req.body.category, req.body.description, req.body.quantity, req.body.price, req.body.salePrice, req.body.unit);
+    if (req.file) {
+        let buffer = await sharp(req.file.buffer).resize(1000, 800).jpeg().toBuffer();
+        let base64 = buffer.toString('base64');
+        base64 = "data:image/jpeg;base64," + base64;
+        let json = await cloudinary.uploader.upload(base64);
+        await Product.updateProductAvatar(req.body.id, json.url);
+    }
+    res.redirect('/san-pham');
 }

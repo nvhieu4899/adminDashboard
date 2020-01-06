@@ -137,3 +137,27 @@ module.exports.filterAtPage = async(query) => {
         return null;
     }
 }
+module.exports.getProductById = async(productId) => {
+    try {
+        return await model.findById(productId);
+    } catch (err) {
+        return null;
+    }
+}
+module.exports.updateProductInfo = async(id, name, cate, desc, qty, price, salePrice, unit) => {
+    try {
+        await model.findByIdAndUpdate(id, { name: name, category: cate, description: desc, available: qty, price: price, salePrice: salePrice, unit: unit });
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+module.exports.updateProductAvatar = async(id, avatar) => {
+    if (!avatar) return false;
+    try {
+        await model.findByIdAndUpdate(id, { img: avatar });
+        return true;
+    } catch (err) {
+        return false;
+    }
+}

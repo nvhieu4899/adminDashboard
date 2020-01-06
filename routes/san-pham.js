@@ -17,4 +17,11 @@ router.post('/add', upload.single('image'), async(req, res, next) => {
     productController.addProduct(req, res, next);
 
 })
+
+router.get('/update', (req, res, next) => {
+    productController.getProductInfo(req, res, next);
+})
+router.post('/update', upload.single('image'), (req, res, next) => {
+    productController.updateProductInfo(req, res, next);
+});
 module.exports = router;
