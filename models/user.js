@@ -29,7 +29,11 @@ module.exports.getAllUser = async() => {
 
 module.exports.setAuthen = async(userid, value) => {
     try {
-        await model.updateOne({ "_id": userid }, { "$set": { "authen": value - 1 } },
+        if (value==3 && userid==req.userid) 
+        {
+            return false;
+        }
+        await model.updateOne({ "_id": userid }, { "$set": { "authen": value-1} },
             function(err) {
                 if (err) throw err;
             }

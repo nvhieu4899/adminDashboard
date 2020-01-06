@@ -84,7 +84,7 @@
         var sel = element.value;
         var strUser = element.options[4].value;
         var request = new XMLHttpRequest();
-        request.open("POST", "/tai-khoan", true);
+        request.open("POST", "/quan-li/tai-khoan", true);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         var param = "userid=" + strUser + "&value=" + sel;
         request.send(param);
