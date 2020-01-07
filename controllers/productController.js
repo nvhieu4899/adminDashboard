@@ -77,7 +77,7 @@ module.exports.addProduct = async(req, res, next) => {
         base64 = "data:image/jpeg;base64," + base64;
         let json = await cloudinary.uploader.upload(base64);
         await Product.addNewProduct(req.body.name, req.body.description, req.body.category, req.body.quantity, req.body.price, req.body.salePrice, req.body.unit, json.url);
-        res.redirect('/san-pham');
+        res.redirect('/quan-li/san-pham');
     } catch (err) {
         res.send("failure");
     }
@@ -106,5 +106,5 @@ module.exports.updateProductInfo = async(req, res, next) => {
         let json = await cloudinary.uploader.upload(base64);
         await Product.updateProductAvatar(req.body.id, json.url);
     }
-    res.redirect('/san-pham');
+    res.redirect('/quan-li/san-pham');
 }
